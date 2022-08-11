@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Pencil, PlusCircle, Trash } from "phosphor-react";
+import { Pencil, PlusCircle, Trash, X } from "phosphor-react";
 
 export function App() {
   const [modal, setModal] = useState<boolean>(false);
 
   function modalDisplay(display: string) {
-    return display == "ativar" ? setModal(true) : setModal(false);
+    if (display == "ativar") {
+      setModal(true);
+    } else setModal(false);
   }
 
   return (
@@ -13,7 +15,6 @@ export function App() {
       <header className="w-full h-20 bg-[#364A54] flex items-center">
         <div className="w-full py-2 px-12 flex justify-between">
           <h1 className="text-3xl text-white">Cadastro de Hóspedes</h1>
-
           <button
             className="flex items-center gap-2 text-white bg-green-600 px-3"
             onClick={() => modalDisplay("ativar")}
@@ -27,9 +28,18 @@ export function App() {
       <main className="m-8">
         {modal ? (
           <div className="w-screen h-screen fixed flex top-0 left-0 z-50 items-center justify-center bg-modal">
-            <div className="w-[65%] h-[65%] bg-white">
-              
-            </div>
+            <section className="w-[65%] h-[65%] bg-white">
+              <header className="w-full h-12 flex items-center justify-end">
+                <div className="mr-4">
+                  <X
+                    className="cursor-pointer"
+                    onClick={() => modalDisplay("desativar")}
+                    size={32}
+                    weight="bold"
+                  />
+                </div>
+              </header>
+            </section>
           </div>
         ) : null}
 
