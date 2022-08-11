@@ -7,12 +7,12 @@ export function App() {
     <>
       <header className='w-full h-20 bg-[#364A54] flex items-center'>
         <div className='w-full py-2 px-12 flex justify-between'>
-            <h1 className='text-3xl text-white'>Cadastro de Hóspedes</h1>
+          <h1 className='text-3xl text-white'>Cadastro de Hóspedes</h1>
 
-            <button className='flex items-center gap-2 text-white bg-green-600 px-3'>
-              <PlusCircle size={26} weight="bold" />
-              Adicionar novo hóspede
-            </button>
+          <button className='flex items-center gap-2 text-white bg-green-600 px-3'>
+            <PlusCircle size={26} weight="bold" />
+            Adicionar novo hóspede
+          </button>
         </div>
       </header>
 
@@ -52,6 +52,35 @@ export function App() {
           </tbody>
         </table>
       </main>
+
+      <footer className='w-full h-12 bg-[#364A54] m-auto bottom-0 fixed'>
+        <div className='flex items-center justify-between px-12 py-3'>
+          <div>
+            <label className='text-white pr-4'>Ordenar por: </label>
+            <select>
+              <option value="padrao" selected>Padrão</option>
+              <option value="nome">Nome</option>
+              <option value="email">E-mail</option>
+            </select>
+          </div>
+          <div className='flex items-center text-white gap-2'>
+            <button className='mr-2'>Anterior</button>
+            <button className='w-8 h-7 flex text-center justify-center ativo'>
+              1
+            </button>
+            <button className='w-8 h-7 flex text-center justify-center '>
+              2
+            </button>
+            <button className='w-8 h-7 flex text-center justify-center '>
+              3
+            </button>
+            <button className='w-8 h-7 flex text-center justify-center '>
+              4
+            </button>
+            <button className='ml-2'>Proximo</button>
+          </div>
+        </div>
+      </footer>
     </>
   )
 }
