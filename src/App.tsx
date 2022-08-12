@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Pencil, PlusCircle, Trash, X } from "phosphor-react";
-import PhoneInput from "react-phone-input-2";
-import 'react-phone-input-2/lib/style.css'
 
 export function App() {
   const [modal, setModal] = useState<boolean>(false);
@@ -65,15 +63,18 @@ export function App() {
                       required
                     />
 
-                    <div className="flex gap-3">
-                      <label className="" htmlFor="telefone">
-                        Telefone:{" "}
-                      </label>
-                      <PhoneInput 
-                        country={'br'}
-                        
-                      />
-                    </div>
+                    <label className="w-1/5" htmlFor="telefone">
+                      Telefone:{" "}
+                    </label>
+                    <input
+                      className="w-11/12"
+                      type="tel"
+                      pattern="(?=.*\d)(?=.*[0-9]).{4} [0-9]{5}-[0-9]{4}"
+                      placeholder="(00) 12345-6789"
+                      name="telefone"
+                      id="tel"
+                      required
+                    />
 
                     <label className="w-1/5" htmlFor="endereco">
                       Endereço:{" "}
