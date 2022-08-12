@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Pencil, PlusCircle, Trash, X } from "phosphor-react";
+import PhoneInput from "react-phone-input-2";
+import 'react-phone-input-2/lib/style.css'
 
 export function App() {
   const [modal, setModal] = useState<boolean>(false);
@@ -39,6 +41,61 @@ export function App() {
                   />
                 </div>
               </header>
+
+              <main className="w-full h-full">
+                <div className="m-8">
+                  <form>
+                    <label className="w-1/5" htmlFor="nome">
+                      Nome:{" "}
+                    </label>
+                    <input
+                      className="w-11/12"
+                      type="text"
+                      name="nome"
+                      required
+                    />
+
+                    <label className="w-1/5" htmlFor="email">
+                      Email:{" "}
+                    </label>
+                    <input
+                      className="w-11/12"
+                      type="email"
+                      name="email"
+                      required
+                    />
+
+                    <div className="flex gap-3">
+                      <label className="" htmlFor="telefone">
+                        Telefone:{" "}
+                      </label>
+                      <PhoneInput 
+                        country={'br'}
+                        
+                      />
+                    </div>
+
+                    <label className="w-1/5" htmlFor="endereco">
+                      Endereço:{" "}
+                    </label>
+                    <input
+                      className="w-11/12"
+                      type="text"
+                      name="endereco"
+                      required
+                    />
+
+                    <label className="w-1/5" htmlFor="dataNascimento">
+                      Data de Nascimento:{" "}
+                    </label>
+                    <input type="date" name="dataNascimento" required />
+
+                    <button type="submit" className="block border border-black">
+                      Enviar
+                    </button>
+                  </form>
+                </div>
+              </main>
             </section>
           </div>
         ) : null}
@@ -70,12 +127,12 @@ export function App() {
               </td>
             </tr>
             <tr className="border-b-2">
-              <td className="max-h-14 p-[6px] ver">1</td>
-              <td className="max-h-14 p-[6px] ver">Alerrando</td>
-              <td className="max-h-14 p-[6px] ver">alerrando2@gmail.com</td>
-              <td className="max-h-14 p-[6px] ver">(18)99823-3887</td>
-              <td className="max-h-14 p-[6px] ver">Rancharia</td>
-              <td className="max-h-14 p-[6px] ver">16/10/2002</td>
+              <td className="max-h-14 p-[6px] ver">2</td>
+              <td className="max-h-14 p-[6px] ver">Andressa</td>
+              <td className="max-h-14 p-[6px] ver">andressaSouza@gmail.com</td>
+              <td className="max-h-14 p-[6px] ver">(18)99881-5716</td>
+              <td className="max-h-14 p-[6px] ver">Arthur Nogueira</td>
+              <td className="max-h-14 p-[6px] ver">17/11/2002</td>
               <td className="max-h-14 p-[6px] ver">
                 <Pencil size={32} weight="bold" />
               </td>
