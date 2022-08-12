@@ -41,33 +41,33 @@ export function App() {
               </header>
 
               <main className="w-full h-full">
-                <div className="m-8">
+                <div className="mx-8 my-2">
                   <form>
-                    <label className="w-1/5" htmlFor="nome">
+                    <label className="text-xl" htmlFor="nome">
                       Nome:{" "}
                     </label>
                     <input
-                      className="w-11/12"
+                      className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
                       type="text"
                       name="nome"
                       required
                     />
 
-                    <label className="w-1/5" htmlFor="email">
+                    <label className="text-xl" htmlFor="email">
                       Email:{" "}
                     </label>
                     <input
-                      className="w-11/12"
+                      className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
                       type="email"
                       name="email"
                       required
                     />
 
-                    <label className="w-1/5" htmlFor="telefone">
+                    <label className="text-xl" htmlFor="telefone">
                       Telefone:{" "}
                     </label>
                     <input
-                      className="w-11/12"
+                      className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
                       type="tel"
                       pattern="(?=.*\d)(?=.*[0-9]).{4} [0-9]{5}-[0-9]{4}"
                       placeholder="(00) 12345-6789"
@@ -76,24 +76,29 @@ export function App() {
                       required
                     />
 
-                    <label className="w-1/5" htmlFor="endereco">
+                    <label className="text-xl" htmlFor="endereco">
                       Endereço:{" "}
                     </label>
                     <input
-                      className="w-11/12"
+                      className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
                       type="text"
                       name="endereco"
                       required
                     />
 
-                    <label className="w-1/5" htmlFor="dataNascimento">
+                    <label className="w-1/5 text-xl" htmlFor="dataNascimento">
                       Data de Nascimento:{" "}
                     </label>
                     <input type="date" name="dataNascimento" required />
 
-                    <button type="submit" className="block border border-black">
-                      Enviar
-                    </button>
+                    <div className="flex items-center justify-end">
+                      <button
+                        type="submit"
+                        className="px-6 py-1 bg-blue-700 text-white outline-none hover:bg-blue-900 transition-colors"
+                      >
+                        Enviar
+                      </button>
+                    </div>
                   </form>
                 </div>
               </main>
