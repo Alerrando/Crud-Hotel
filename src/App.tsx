@@ -1,18 +1,30 @@
 import { useState } from "react";
-import { Pencil, PlusCircle, Trash, X } from "phosphor-react";
+import { Pencil, PlusCircle, Trash } from "phosphor-react";
+import { Modal } from "./components/modal";
+
+export type inputsModal = {
+  nome: string;
+  email: string;
+  telefone: string;
+  endereco: string;
+  calendario: string;
+};
 
 export function App() {
   const [modal, setModal] = useState<boolean>(false);
-  const [inputNome, setInputNome] = useState<string>("");
-  const [inputEmail, setInputEmail] = useState<string>("");
-  const [inputTelefone, setInputTelefone] = useState<string>("");
-  const [inputEndereco, setInputEndereco] = useState<string>("");
-  const [inputCalendario, setInputCalendario] = useState<string>("");
   const [atualizar, setAtualizar] = useState({
     update: false,
     index: 0,
   });
   const [infos, setInfos] = useState<any[]>([]);
+
+  let inputs: inputsModal = {
+    nome: "",
+    email: "",
+    telefone: "",
+    endereco: "",
+    calendario: "",
+  };
 
   function modalDisplay(display: string) {
     if (display == "ativar") {
@@ -20,32 +32,18 @@ export function App() {
     } else setModal(false);
   }
 
-  function addInputEndereco(value: string) {
-    setInputEndereco(value);
-  }
-
   function addInfos() {
-    let infosHospede: object = [];
+    let infosHospede: object = {
+      nome: inputs.nome,
+      email: inputs.email,
+      endereco: inputs.endereco,
+      telefone: inputs.telefone,
+      calendario: new Date(inputs.calendario).toLocaleDateString("pt-br"),
+    };
 
     if (atualizar.update == false) {
-      infosHospede = {
-        nome: inputNome,
-        email: inputEmail,
-        endereco: inputEndereco,
-        telefone: inputTelefone,
-        calendario: new Date(inputCalendario).toLocaleDateString("pt-br"),
-      };
-
       setInfos([...infos, infosHospede]);
     } else {
-      infosHospede = {
-        nome: inputNome,
-        email: inputEmail,
-        endereco: inputEndereco,
-        telefone: inputTelefone,
-        calendario: new Date(inputCalendario).toLocaleDateString("pt-br"),
-      };
-
       const atualizarHospede = infos.map((item, index) => {
         if (atualizar.index == index) {
           return infosHospede;
@@ -57,6 +55,7 @@ export function App() {
     }
 
     setModal(false);
+    setAtualizar({ update: false, index: 0 });
   }
 
   function deleteHospede(index: number) {
@@ -88,102 +87,11 @@ export function App() {
 
       <main className="m-8">
         {modal ? (
-          <div className="w-screen h-screen fixed flex top-0 left-0 z-50 items-center justify-center bg-modal">
-            <section className="w-[65%] h-[65%] bg-white">
-              <header className="w-full h-12 flex items-center justify-end">
-                <div className="mr-4">
-                  <X
-                    className="cursor-pointer"
-                    onClick={() => modalDisplay("desativar")}
-                    size={32}
-                    weight="bold"
-                  />
-                </div>
-              </header>
-
-              <main className="w-full h-full">
-                <div className="mx-8 my-2">
-                  <form>
-                    <label className="text-xl" htmlFor="nome">
-                      Nome:{" "}
-                    </label>
-                    <input
-                      className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
-                      type="text"
-                      name="nome"
-                      required
-                      onChange={(e) =>
-                        setInputNome((e.target as HTMLInputElement).value)
-                      }
-                    />
-
-                    <label className="text-xl" htmlFor="email">
-                      Email:{" "}
-                    </label>
-                    <input
-                      className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
-                      type="email"
-                      name="email"
-                      onChange={(e) =>
-                        setInputEmail((e.target as HTMLInputElement).value)
-                      }
-                      required
-                    />
-
-                    <label className="text-xl" htmlFor="telefone">
-                      Telefone:{" "}
-                    </label>
-                    <input
-                      className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
-                      type="tel"
-                      pattern="(?=.*\d)(?=.*[0-9]).{4} [0-9]{5}-[0-9]{4}"
-                      placeholder="(00) 12345-6789"
-                      name="telefone"
-                      id="tel"
-                      onChange={(e) =>
-                        setInputTelefone((e.target as HTMLInputElement).value)
-                      }
-                      required
-                    />
-
-                    <label className="text-xl" htmlFor="endereco">
-                      Endereço:{" "}
-                    </label>
-                    <input
-                      className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
-                      type="text"
-                      name="endereco"
-                      onChange={(e) =>
-                        setInputEndereco((e.target as HTMLInputElement).value)
-                      }
-                      required
-                    />
-
-                    <label className="w-1/5 text-xl" htmlFor="dataNascimento">
-                      Data de Nascimento:{" "}
-                    </label>
-                    <input
-                      type="date"
-                      name="dataNascimento"
-                      required
-                      onChange={(e) =>
-                        setInputCalendario((e.target as HTMLInputElement).value)
-                      }
-                    />
-
-                    <div className="flex items-center justify-end">
-                      <div
-                        className="w-20 h-8 flex items-center justify-center cursor-pointer bg-blue-700 text-white hover:bg-blue-900 transition-colors"
-                        onClick={addInfos}
-                      >
-                        Enviar
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </main>
-            </section>
-          </div>
+          <Modal
+            addInfos={addInfos}
+            modal={modalDisplay}
+            inputsModal={inputs}
+          />
         ) : null}
 
         <table className="w-full border-collapse">
