@@ -3,11 +3,33 @@ import { Pencil, PlusCircle, Trash, X } from "phosphor-react";
 
 export function App() {
   const [modal, setModal] = useState<boolean>(false);
+  const [inputNome, setInputNome] = useState<string>("");
+  const [inputEmail, setInputEmail] = useState<string>("");
+  const [inputTelefone, setInputTelefone] = useState<string>("");
+  const [inputEndereco, setInputEndereco] = useState<string>("");
+  const [inputCalendario, setInputCalendario] = useState<string>("");
+  const [infos, setInfos] = useState<any[]>([]);
 
   function modalDisplay(display: string) {
     if (display == "ativar") {
       setModal(true);
     } else setModal(false);
+  }
+
+  function addInputEndereco(value: string) {
+    setInputEndereco(value);
+  }
+
+  function addInfos() {
+    const infosHospede = {
+      nome: inputNome,
+      enail: inputEmail,
+      telefone: inputTelefone,
+      endereco: inputEndereco,
+      calendario: inputCalendario,
+    };
+
+    setInfos([...infos, infosHospede]);
   }
 
   return (
@@ -51,6 +73,9 @@ export function App() {
                       type="text"
                       name="nome"
                       required
+                      onChange={(e) =>
+                        setInputNome((e.target as HTMLInputElement).value)
+                      }
                     />
 
                     <label className="text-xl" htmlFor="email">
@@ -60,6 +85,9 @@ export function App() {
                       className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
                       type="email"
                       name="email"
+                      onChange={(e) =>
+                        setInputEmail((e.target as HTMLInputElement).value)
+                      }
                       required
                     />
 
@@ -73,6 +101,9 @@ export function App() {
                       placeholder="(00) 12345-6789"
                       name="telefone"
                       id="tel"
+                      onChange={(e) =>
+                        setInputTelefone((e.target as HTMLInputElement).value)
+                      }
                       required
                     />
 
@@ -83,21 +114,31 @@ export function App() {
                       className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
                       type="text"
                       name="endereco"
+                      onChange={(e) =>
+                        setInputEndereco((e.target as HTMLInputElement).value)
+                      }
                       required
                     />
 
                     <label className="w-1/5 text-xl" htmlFor="dataNascimento">
                       Data de Nascimento:{" "}
                     </label>
-                    <input type="date" name="dataNascimento" required />
+                    <input
+                      type="date"
+                      name="dataNascimento"
+                      required
+                      onChange={(e) =>
+                        setInputCalendario((e.target as HTMLInputElement).value)
+                      }
+                    />
 
                     <div className="flex items-center justify-end">
-                      <button
-                        type="submit"
-                        className="px-6 py-1 bg-blue-700 text-white outline-none hover:bg-blue-900 transition-colors"
+                      <div
+                        className="w-20 h-8 flex items-center justify-center cursor-pointer bg-blue-700 text-white hover:bg-blue-900 transition-colors"
+                        onClick={addInfos}
                       >
                         Enviar
-                      </button>
+                      </div>
                     </div>
                   </form>
                 </div>
