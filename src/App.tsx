@@ -23,14 +23,17 @@ export function App() {
   function addInfos() {
     const infosHospede = {
       nome: inputNome,
-      enail: inputEmail,
-      telefone: inputTelefone,
+      email: inputEmail,
       endereco: inputEndereco,
-      calendario: inputCalendario,
+      telefone: inputTelefone,
+      calendario: new Date(inputCalendario).toLocaleDateString("pt-br"),
     };
 
     setInfos([...infos, infosHospede]);
+    setModal(false)
   }
+
+  console.log(infos)
 
   return (
     <>
@@ -159,34 +162,22 @@ export function App() {
             <th className="p-1 text-start">Excluir</th>
           </thead>
           <tbody>
-            <tr className="border-b-2">
-              <td className="max-h-14 p-[6px] ver">1</td>
-              <td className="max-h-14 p-[6px] ver">Alerrando</td>
-              <td className="max-h-14 p-[6px] ver">alerrando2@gmail.com</td>
-              <td className="max-h-14 p-[6px] ver">(18)99823-3887</td>
-              <td className="max-h-14 p-[6px] ver">Rancharia</td>
-              <td className="max-h-14 p-[6px] ver">16/10/2002</td>
-              <td className="max-h-14 p-[6px] ver">
-                <Pencil size={32} weight="bold" />
-              </td>
-              <td className="max-h-14 p-[6px] ver">
-                <Trash size={32} weight="bold" />
-              </td>
-            </tr>
-            <tr className="border-b-2">
-              <td className="max-h-14 p-[6px] ver">2</td>
-              <td className="max-h-14 p-[6px] ver">Andressa</td>
-              <td className="max-h-14 p-[6px] ver">andressaSouza@gmail.com</td>
-              <td className="max-h-14 p-[6px] ver">(18)99881-5716</td>
-              <td className="max-h-14 p-[6px] ver">Arthur Nogueira</td>
-              <td className="max-h-14 p-[6px] ver">17/11/2002</td>
-              <td className="max-h-14 p-[6px] ver">
-                <Pencil size={32} weight="bold" />
-              </td>
-              <td className="max-h-14 p-[6px] ver">
-                <Trash size={32} weight="bold" />
-              </td>
-            </tr>
+            {infos.map((hospede, index) => (
+              <tr className="border-b-2" key={index}>
+                <td className="max-h-14 p-[6px] ver">{index + 1}</td>
+                <td className="max-h-14 p-[6px] ver">{hospede.nome}</td>
+                <td className="max-h-14 p-[6px] ver">{hospede.email}</td>
+                <td className="max-h-14 p-[6px] ver">{hospede.telefone}</td>
+                <td className="max-h-14 p-[6px] ver">{hospede.endereco}</td>
+                <td className="max-h-14 p-[6px] ver">{hospede.calendario}</td>
+                <td className="max-h-14 p-[6px] ver">
+                  <Pencil size={32} weight="bold" className="cursor-pointer" />
+                </td>
+                <td className="max-h-14 p-[6px] ver">
+                  <Trash size={32} weight="bold" className="cursor-pointer" />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </main>
