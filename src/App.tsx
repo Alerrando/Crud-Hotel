@@ -8,6 +8,10 @@ export function App() {
   const [inputTelefone, setInputTelefone] = useState<string>("");
   const [inputEndereco, setInputEndereco] = useState<string>("");
   const [inputCalendario, setInputCalendario] = useState<string>("");
+  const [atualizar, setAtualizar] = useState({
+    update: false,
+    index: 0,
+  });
   const [infos, setInfos] = useState<any[]>([]);
 
   function modalDisplay(display: string) {
@@ -21,19 +25,51 @@ export function App() {
   }
 
   function addInfos() {
-    const infosHospede = {
-      nome: inputNome,
-      email: inputEmail,
-      endereco: inputEndereco,
-      telefone: inputTelefone,
-      calendario: new Date(inputCalendario).toLocaleDateString("pt-br"),
-    };
+    let infosHospede: object = [];
 
-    setInfos([...infos, infosHospede]);
-    setModal(false)
+    if (atualizar.update == false) {
+      infosHospede = {
+        nome: inputNome,
+        email: inputEmail,
+        endereco: inputEndereco,
+        telefone: inputTelefone,
+        calendario: new Date(inputCalendario).toLocaleDateString("pt-br"),
+      };
+
+      setInfos([...infos, infosHospede]);
+    } else {
+      infosHospede = {
+        nome: inputNome,
+        email: inputEmail,
+        endereco: inputEndereco,
+        telefone: inputTelefone,
+        calendario: new Date(inputCalendario).toLocaleDateString("pt-br"),
+      };
+
+      const atualizarHospede = infos.map((item, index) => {
+        if (atualizar.index == index) {
+          return infosHospede;
+        }
+        return item;
+      });
+
+      setInfos(atualizarHospede);
+    }
+
+    setModal(false);
   }
 
-  console.log(infos)
+  function deleteHospede(index: number) {
+    const arrayAux = [...infos];
+    arrayAux.splice(index, 1);
+    setInfos(arrayAux);
+  }
+
+  function editHospede(id: number) {
+    setModal(true);
+
+    setAtualizar({ update: true, index: id });
+  }
 
   return (
     <>
@@ -171,10 +207,20 @@ export function App() {
                 <td className="max-h-14 p-[6px] ver">{hospede.endereco}</td>
                 <td className="max-h-14 p-[6px] ver">{hospede.calendario}</td>
                 <td className="max-h-14 p-[6px] ver">
-                  <Pencil size={32} weight="bold" className="cursor-pointer" />
+                  <Pencil
+                    size={32}
+                    weight="bold"
+                    className="cursor-pointer"
+                    onClick={(e) => editHospede(index)}
+                  />
                 </td>
                 <td className="max-h-14 p-[6px] ver">
-                  <Trash size={32} weight="bold" className="cursor-pointer" />
+                  <Trash
+                    size={32}
+                    weight="bold"
+                    className="cursor-pointer"
+                    onClick={(e) => deleteHospede(index)}
+                  />
                 </td>
               </tr>
             ))}
