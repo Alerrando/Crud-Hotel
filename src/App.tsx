@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pencil, PlusCircle, Trash } from "phosphor-react";
 import { Modal } from "./components/modal";
+import { EditModal } from "./components/modal/EditModal";
 
-export type inputsModal = {
-  nome: string;
-  email: string;
-  telefone: string;
-  endereco: string;
-  calendario: string;
+export const inputs = {
+  nome: "",
+  email: "",
+  telefone: "",
+  endereco: "",
+  dataNascimento: "",
 };
 
 export function App() {
@@ -17,44 +18,54 @@ export function App() {
     index: 0,
   });
   const [infos, setInfos] = useState<any[]>([]);
+  const [inputsModal, setInputsModal] = useState(inputs);
 
-  let inputs: inputsModal = {
-    nome: "",
-    email: "",
-    telefone: "",
-    endereco: "",
-    calendario: "",
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setInputsModal({ ...inputsModal, [name]: value });
   };
+
+  function validarInputs(index: object) {
+    let validar = 1;
+    for (const [key, valor] of Object.entries(index)) {
+      if (valor == "") validar = -1;
+      else if (key == "telefone") {
+        if (!/[0-9]/.test(valor)) if (!/\W|_/.test(valor)) validar = -1;
+      }
+    }
+
+    return validar == -1
+      ? alert("Preencha todos os campos corretamente!")
+      : validar;
+  }
 
   function modalDisplay(display: string) {
     if (display == "ativar") {
       setModal(true);
-    } else setModal(false);
+    } else {
+      setModal(false);
+      setAtualizar({ update: false, index: 0 });
+    }
   }
 
   function addInfos() {
-    let infosHospede: object = {
-      nome: inputs.nome,
-      email: inputs.email,
-      endereco: inputs.endereco,
-      telefone: inputs.telefone,
-      calendario: new Date(inputs.calendario).toLocaleDateString("pt-br"),
-    };
-
     if (atualizar.update == false) {
-      setInfos([...infos, infosHospede]);
+      if (validarInputs(inputsModal) > 0) {
+        setInfos([...infos, inputsModal]);
+        setModal(false);
+      }
     } else {
       const atualizarHospede = infos.map((item, index) => {
         if (atualizar.index == index) {
-          return infosHospede;
+          return inputsModal;
         }
         return item;
       });
 
       setInfos(atualizarHospede);
+      setModal(false);
     }
 
-    setModal(false);
     setAtualizar({ update: false, index: 0 });
   }
 
@@ -65,9 +76,9 @@ export function App() {
   }
 
   function editHospede(id: number) {
-    setModal(true);
-
     setAtualizar({ update: true, index: id });
+
+    setModal(true);
   }
 
   return (
@@ -87,11 +98,22 @@ export function App() {
 
       <main className="m-8">
         {modal ? (
-          <Modal
-            addInfos={addInfos}
-            modal={modalDisplay}
-            inputsModal={inputs}
-          />
+          atualizar.update ? (
+            <EditModal
+              addInfos={addInfos}
+              modal={modalDisplay}
+              inputsModal={inputsModal}
+              atualizar={atualizar}
+              handleInputChange={handleInputChange}
+            />
+          ) : (
+            <Modal
+              addInfos={addInfos}
+              modal={modalDisplay}
+              inputsModal={inputsModal}
+              handleInputChange={handleInputChange}
+            />
+          )
         ) : null}
 
         <table className="w-full border-collapse">
@@ -108,13 +130,13 @@ export function App() {
           <tbody>
             {infos.map((hospede, index) => (
               <tr className="border-b-2" key={index}>
-                <td className="max-h-14 p-[6px] ver">{index + 1}</td>
-                <td className="max-h-14 p-[6px] ver">{hospede.nome}</td>
-                <td className="max-h-14 p-[6px] ver">{hospede.email}</td>
-                <td className="max-h-14 p-[6px] ver">{hospede.telefone}</td>
-                <td className="max-h-14 p-[6px] ver">{hospede.endereco}</td>
-                <td className="max-h-14 p-[6px] ver">{hospede.calendario}</td>
-                <td className="max-h-14 p-[6px] ver">
+                <td className="max-h-14 p-[6px]">{index + 1}</td>
+                <td className="max-h-14 p-[6px]">{hospede.nome}</td>
+                <td className="max-h-14 p-[6px]">{hospede.email}</td>
+                <td className="max-h-14 p-[6px]">{hospede.telefone}</td>
+                <td className="max-h-14 p-[6px]">{hospede.endereco}</td>
+                <td className="max-h-14 p-[6px]">{hospede.dataNascimento}</td>
+                <td className="max-h-14 p-[6px]">
                   <Pencil
                     size={32}
                     weight="bold"
@@ -122,7 +144,7 @@ export function App() {
                     onClick={(e) => editHospede(index)}
                   />
                 </td>
-                <td className="max-h-14 p-[6px] ver">
+                <td className="max-h-14 p-[6px]">
                   <Trash
                     size={32}
                     weight="bold"

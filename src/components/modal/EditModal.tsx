@@ -1,14 +1,16 @@
 import { X } from "phosphor-react";
 import { inputs } from "../../App";
 
-type ModalProps = {
+type EditModalProps = {
   addInfos: () => void;
   modal: (atualizar: string) => void;
   inputsModal: typeof inputs;
+  atualizar: any;
   handleInputChange: (e: any) => void;
 };
 
-export function Modal(props: ModalProps) {
+export function EditModal(props: EditModalProps) {
+  const modalInput = props.inputsModal;
 
   return (
     <div className="w-screen h-screen fixed flex top-0 left-0 z-50 items-center justify-center bg-modal">
@@ -28,16 +30,17 @@ export function Modal(props: ModalProps) {
           <div className="mx-8 my-2">
             <form>
               <label className="text-xl" htmlFor="nome">
-                Nome:{""}
+                Nome: {" "}
               </label>
               <input
                 className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
                 type="text"
                 name="nome"
+                value={modalInput.nome}
+                required
                 onChange={(e) => {
                   props.handleInputChange(e)
                 }}
-                required
               />
 
               <label className="text-xl" htmlFor="email">
@@ -47,6 +50,7 @@ export function Modal(props: ModalProps) {
                 className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
                 type="email"
                 name="email"
+                value={modalInput.email}
                 onChange={(e) => {
                   props.handleInputChange(e)
                 }}
@@ -59,9 +63,9 @@ export function Modal(props: ModalProps) {
               <input
                 className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
                 type="tel"
-                placeholder="(00) 12345-6789"
                 name="telefone"
                 id="tel"
+                value={modalInput.telefone}
                 onChange={(e) => {
                   props.handleInputChange(e)
                 }}
@@ -75,6 +79,7 @@ export function Modal(props: ModalProps) {
                 className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
                 type="text"
                 name="endereco"
+                value={modalInput.endereco}
                 onChange={(e) => {
                   props.handleInputChange(e)
                 }}
@@ -87,6 +92,8 @@ export function Modal(props: ModalProps) {
               <input
                 type="date"
                 name="dataNascimento"
+                value={modalInput.dataNascimento}
+                required
                 onChange={(e) => {
                   props.handleInputChange(e)
                 }}
