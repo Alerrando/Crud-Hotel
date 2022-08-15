@@ -28,10 +28,10 @@ export function App() {
   return (
     <>
       <header className="w-full h-20 bg-[#364A54] flex items-center">
-        <div className="w-full py-2 px-4 md:px-12 flex items-center justify-between">
-          <h1 className="text-sm md:text-3xl text-white">Cadastro de Hóspedes</h1>
+        <div className="w-full py-2 px-12 flex justify-between">
+          <h1 className="text-3xl text-white">Cadastro de Hóspedes</h1>
           <button
-            className="flex items-center text-xs md:text-xl gap-2 text-white bg-green-600 px-1 py-1 md:px-3"
+            className="flex items-center text-2xl gap-2 text-white bg-green-600 px-3"
             onClick={() => modalDisplay("ativar")}
           >
             <PlusCircle size={26} weight="bold" />
@@ -115,19 +115,7 @@ export function App() {
             </select>
           </div>
           <div className="flex items-center text-white gap-2">
-            <button className="mr-2">Anterior</button>
-            <button className="w-8 h-7 flex text-center justify-center ativo">
-              1
-            </button>
-            <button className="w-8 h-7 flex text-center justify-center ">
-              2
-            </button>
-            <button className="w-8 h-7 flex text-center justify-center ">
-              3
-            </button>
-            <button className="w-8 h-7 flex text-center justify-center ">
-              4
-            </button>
+            <input type="search" name="procurar" id="procurar" />
             <button className="ml-2">Proximo</button>
           </div>
         </div>
@@ -163,6 +151,7 @@ export function App() {
       if (validarInputs(inputsModal) > 0) {
         setInfos([...infos, inputsModal]);
         setModal(false);
+        setInputsModal({nome: "", email: "", telefone: "", endereco: "", dataNascimento: ""})
       }
     } else {
       const atualizarHospede = infos.map((item, index) => {
