@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pencil, PlusCircle, Trash } from "phosphor-react";
 import { Modal } from "./components/modal";
-import { EditModal } from "./components/modal/EditModal";
+import { EditModal } from "./components/EditModal";
 
 export const inputs = {
   nome: "",
@@ -25,69 +25,13 @@ export function App() {
     setInputsModal({ ...inputsModal, [name]: value });
   };
 
-  function validarInputs(index: object) {
-    let validar = 1;
-    for (const [key, valor] of Object.entries(index)) {
-      if (valor == "") validar = -1;
-      else if (key == "telefone") {
-        if (!/[0-9]/.test(valor)) if (!/\W|_/.test(valor)) validar = -1;
-      }
-    }
-
-    return validar == -1
-      ? alert("Preencha todos os campos corretamente!")
-      : validar;
-  }
-
-  function modalDisplay(display: string) {
-    if (display == "ativar") {
-      setModal(true);
-    } else {
-      setModal(false);
-      setAtualizar({ update: false, index: 0 });
-    }
-  }
-
-  function addInfos() {
-    if (atualizar.update == false) {
-      if (validarInputs(inputsModal) > 0) {
-        setInfos([...infos, inputsModal]);
-        setModal(false);
-      }
-    } else {
-      const atualizarHospede = infos.map((item, index) => {
-        if (atualizar.index == index) {
-          return inputsModal;
-        }
-        return item;
-      });
-
-      setInfos(atualizarHospede);
-      setModal(false);
-    }
-
-    setAtualizar({ update: false, index: 0 });
-  }
-
-  function deleteHospede(index: number) {
-    const arrayAux = [...infos];
-    arrayAux.splice(index, 1);
-    setInfos(arrayAux);
-  }
-
-  function editHospede(id: number) {
-    setAtualizar({ update: true, index: id });
-
-    setModal(true);
-  }
-
   return (
     <>
       <header className="w-full h-20 bg-[#364A54] flex items-center">
-        <div className="w-full py-2 px-12 flex justify-between">
-          <h1 className="text-3xl text-white">Cadastro de Hóspedes</h1>
+        <div className="w-full py-2 px-4 md:px-12 flex items-center justify-between">
+          <h1 className="text-sm md:text-3xl text-white">Cadastro de Hóspedes</h1>
           <button
-            className="flex items-center gap-2 text-white bg-green-600 px-3"
+            className="flex items-center text-xs md:text-xl gap-2 text-white bg-green-600 px-1 py-1 md:px-3"
             onClick={() => modalDisplay("ativar")}
           >
             <PlusCircle size={26} weight="bold" />
@@ -190,4 +134,60 @@ export function App() {
       </footer>
     </>
   );
+
+  function validarInputs(index: object) {
+    let validar = 1;
+    for (const [key, valor] of Object.entries(index)) {
+      if (valor == "") validar = -1;
+      else if (key == "telefone") {
+        if (!/[0-9]/.test(valor)) if (!/\W|_/.test(valor)) validar = -1;
+      }
+    }
+
+    return validar == -1
+      ? alert("Preencha todos os campos corretamente!")
+      : validar;
+  }
+
+  function modalDisplay(display: string) {
+    if (display == "ativar") {
+      setModal(true);
+    } else {
+      setModal(false);
+      setAtualizar({ update: false, index: 0 });
+    }
+  }
+
+  function addInfos() {
+    if (atualizar.update == false) {
+      if (validarInputs(inputsModal) > 0) {
+        setInfos([...infos, inputsModal]);
+        setModal(false);
+      }
+    } else {
+      const atualizarHospede = infos.map((item, index) => {
+        if (atualizar.index == index) {
+          return inputsModal;
+        }
+        return item;
+      });
+
+      setInfos(atualizarHospede);
+      setModal(false);
+    }
+
+    setAtualizar({ update: false, index: 0 });
+  }
+
+  function deleteHospede(index: number) {
+    const arrayAux = [...infos];
+    arrayAux.splice(index, 1);
+    setInfos(arrayAux);
+  }
+
+  function editHospede(id: number) {
+    setAtualizar({ update: true, index: id });
+
+    setModal(true);
+  }
 }
