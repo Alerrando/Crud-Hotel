@@ -3,7 +3,7 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Table } from "./components/Table";
 import { EditModal } from "./components/EditModal";
-import { Modal } from "./components/Modal";
+import { Modal } from "./components/modal";
 
 export const inputs = {
   nome: "",
