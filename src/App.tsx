@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { Pencil, PlusCircle, Trash } from "phosphor-react";
+import { MagnifyingGlass, Pencil, PlusCircle, Trash } from "phosphor-react";
 import { Modal } from "./components/modal";
 import { EditModal } from "./components/EditModal";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 export const inputs = {
   nome: "",
@@ -19,26 +21,18 @@ export function App() {
   });
   const [infos, setInfos] = useState<any[]>([]);
   const [inputsModal, setInputsModal] = useState(inputs);
+  const [search, setSearch] = useState("")
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setInputsModal({ ...inputsModal, [name]: value });
   };
 
+  const filtro:any[] = infos.filter(info => Object.values(info.nome).join('').toLowerCase().includes(search.toLowerCase()))
+
   return (
     <>
-      <header className="w-full h-20 bg-[#364A54] flex items-center">
-        <div className="w-full py-2 px-12 flex justify-between">
-          <h1 className="text-3xl text-white">Cadastro de Hóspedes</h1>
-          <button
-            className="flex items-center text-2xl gap-2 text-white bg-green-600 px-3"
-            onClick={() => modalDisplay("ativar")}
-          >
-            <PlusCircle size={26} weight="bold" />
-            Adicionar novo hóspede
-          </button>
-        </div>
-      </header>
+      <Header modalDisplay={modalDisplay} />
 
       <main className="m-8">
         {modal ? (
@@ -72,54 +66,66 @@ export function App() {
             <th className="p-1 text-start">Excluir</th>
           </thead>
           <tbody>
-            {infos.map((hospede, index) => (
-              <tr className="border-b-2" key={index}>
-                <td className="max-h-14 p-[6px]">{index + 1}</td>
-                <td className="max-h-14 p-[6px]">{hospede.nome}</td>
-                <td className="max-h-14 p-[6px]">{hospede.email}</td>
-                <td className="max-h-14 p-[6px]">{hospede.telefone}</td>
-                <td className="max-h-14 p-[6px]">{hospede.endereco}</td>
-                <td className="max-h-14 p-[6px]">{hospede.dataNascimento}</td>
-                <td className="max-h-14 p-[6px]">
-                  <Pencil
-                    size={32}
-                    weight="bold"
-                    className="cursor-pointer"
-                    onClick={(e) => editHospede(index)}
-                  />
-                </td>
-                <td className="max-h-14 p-[6px]">
-                  <Trash
-                    size={32}
-                    weight="bold"
-                    className="cursor-pointer"
-                    onClick={(e) => deleteHospede(index)}
-                  />
-                </td>
-              </tr>
-            ))}
+            {search.length == 0 ?
+                (infos.map((hospede, index) => (
+                  <tr className="border-b-2" key={index}>
+                    <td className="max-h-14 p-[6px]">{index + 1}</td>
+                    <td className="max-h-14 p-[6px]">{hospede.nome}</td>
+                    <td className="max-h-14 p-[6px]">{hospede.email}</td>
+                    <td className="max-h-14 p-[6px]">{hospede.telefone}</td>
+                    <td className="max-h-14 p-[6px]">{hospede.endereco}</td>
+                    <td className="max-h-14 p-[6px]">{hospede.dataNascimento}</td>
+                    <td className="max-h-14 p-[6px]">
+                      <Pencil
+                        size={32}
+                        weight="bold"
+                        className="cursor-pointer"
+                        onClick={(e) => editHospede(index)}
+                      />
+                    </td>
+                    <td className="max-h-14 p-[6px]">
+                      <Trash
+                        size={32}
+                        weight="bold"
+                        className="cursor-pointer"
+                        onClick={(e) => deleteHospede(index)}
+                      />
+                    </td>
+                  </tr>))
+                ) :
+              (filtro.map((hospede:typeof inputs, index:number) => (
+                  <tr className="border-b-2" key={index}>
+                    <td className="max-h-14 p-[6px]">{index + 1}</td>
+                    <td className="max-h-14 p-[6px]">{hospede.nome}</td>
+                    <td className="max-h-14 p-[6px]">{hospede.email}</td>
+                    <td className="max-h-14 p-[6px]">{hospede.telefone}</td>
+                    <td className="max-h-14 p-[6px]">{hospede.endereco}</td>
+                    <td className="max-h-14 p-[6px]">{hospede.dataNascimento}</td>
+                    <td className="max-h-14 p-[6px]">
+                      <Pencil
+                        size={32}
+                        weight="bold"
+                        className="cursor-pointer"
+                        onClick={(e) => editHospede(index)}
+                      />
+                    </td>
+                    <td className="max-h-14 p-[6px]">
+                      <Trash
+                        size={32}
+                        weight="bold"
+                        className="cursor-pointer"
+                        onClick={(e) => deleteHospede(index)}
+                      />
+                    </td>
+                  </tr>
+                ))
+              )
+            }
           </tbody>
         </table>
       </main>
 
-      <footer className="w-full h-12 bg-[#364A54] m-auto bottom-0 fixed">
-        <div className="flex items-center justify-between px-12 py-3">
-          <div>
-            <label className="text-white pr-4">Ordenar por: </label>
-            <select>
-              <option value="padrao" selected>
-                Padrão
-              </option>
-              <option value="nome">Nome</option>
-              <option value="email">E-mail</option>
-            </select>
-          </div>
-          <div className="flex items-center text-white gap-2">
-            <input type="search" name="procurar" id="procurar" />
-            <button className="ml-2">Proximo</button>
-          </div>
-        </div>
-      </footer>
+      <Footer setSearch={setSearch} />
     </>
   );
 
@@ -151,7 +157,13 @@ export function App() {
       if (validarInputs(inputsModal) > 0) {
         setInfos([...infos, inputsModal]);
         setModal(false);
-        setInputsModal({nome: "", email: "", telefone: "", endereco: "", dataNascimento: ""})
+        setInputsModal({
+          nome: "",
+          email: "",
+          telefone: "",
+          endereco: "",
+          dataNascimento: "",
+        });
       }
     } else {
       const atualizarHospede = infos.map((item, index) => {
@@ -160,23 +172,23 @@ export function App() {
         }
         return item;
       });
-
+  
       setInfos(atualizarHospede);
       setModal(false);
     }
-
+  
     setAtualizar({ update: false, index: 0 });
   }
-
+  
   function deleteHospede(index: number) {
     const arrayAux = [...infos];
     arrayAux.splice(index, 1);
     setInfos(arrayAux);
   }
-
+  
   function editHospede(id: number) {
     setAtualizar({ update: true, index: id });
-
+  
     setModal(true);
   }
 }

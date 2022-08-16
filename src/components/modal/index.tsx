@@ -9,7 +9,6 @@ type ModalProps = {
 };
 
 export function Modal(props: ModalProps) {
-
   return (
     <div className="w-screen h-screen fixed flex top-0 left-0 z-50 items-center justify-center bg-modal">
       <section className="w-[65%] h-[65%] bg-white">
