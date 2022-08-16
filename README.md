@@ -10,7 +10,7 @@
 
 ## ⌨️ Criação e Execução
 
-<p>Todos os projetos foram criados usando o <a href="https://vitejs.dev/guide/">Vite</a></p>
+<p>Esse projeto foi criado usando o <a href="https://vitejs.dev/guide/">Vite</a></p>
 
 ## `npm run dev`
 Executa o aplicativo no modo de desenvolvimento.<br />
