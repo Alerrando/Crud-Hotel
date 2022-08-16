@@ -22,9 +22,11 @@ export function App() {
     index: 0,
   });
   const [inputsModal, setInputsModal] = useState(inputs);
+  const [auxInputsModal, setAuxInputsModal] = useState(inputs);
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setInputsModal({ ...inputsModal, [name]: value });
+    setAuxInputsModal({ ...auxInputsModal, [name]: value });
   };
 
   const filtro: any[] = infos.filter((info) =>
@@ -37,14 +39,15 @@ export function App() {
   return (
     <>
       <Header modalDisplay={modalDisplay} />
-      
+
       <main className="m-8">
         {modal ? (
           atualizar.update ? (
             <EditModal
               addInfos={addInfos}
               modal={modalDisplay}
-              inputsModal={inputsModal}
+              infos={infos}
+              inputsModal={auxInputsModal}
               atualizar={atualizar}
               handleInputChange={handleInputChange}
             />
@@ -76,7 +79,8 @@ export function App() {
     for (const [key, valor] of Object.entries(index)) {
       if (valor == "") validar = -1;
       else if (key == "telefone") {
-        if (!/[0-9]/.test(valor)) if (!/\W|_/.test(valor)) validar = -1;
+        if (!/[0-9]/.test(valor)) validar = -1;
+        else if (valor.length < 12) validar = -1;
       }
     }
 
@@ -110,7 +114,7 @@ export function App() {
     } else {
       const atualizarHospede = infos.map((item, index) => {
         if (atualizar.index == index) {
-          return inputsModal;
+          return auxInputsModal;
         }
         return item;
       });
@@ -130,7 +134,7 @@ export function App() {
 
   function editHospede(id: number) {
     setAtualizar({ update: true, index: id });
-
+    setAuxInputsModal(infos[id]);
     setModal(true);
   }
 }
