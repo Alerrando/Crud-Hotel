@@ -11,7 +11,7 @@ type ModalProps = {
 export function Modal(props: ModalProps) {
   return (
     <div className="w-screen h-screen fixed flex top-0 left-0 z-50 items-center justify-center bg-modal">
-      <section className="w-[80%] h-[80%] bg-white">
+      <section className="w-[80%] h-[70%] bg-white">
         <header className="w-full h-12 flex items-center justify-end">
           <div className="mr-4">
             <X
@@ -91,15 +91,15 @@ export function Modal(props: ModalProps) {
                 }}
               />
 
-              <div className="flex items-center justify-end">
-                <div
-                  className="w-20 h-8 flex items-center justify-center cursor-pointer bg-blue-700 text-white hover:bg-blue-900 transition-colors"
-                  onClick={props.addInfos}
-                >
-                  Enviar
-                </div>
-              </div>
             </form>
+          </div>
+          <div className="flex items-center justify-end m-8">
+            <div
+              className="w-20 h-8 flex items-center justify-center cursor-pointer bg-blue-700 text-white hover:bg-blue-900 transition-colors"
+              onClick={props.addInfos}
+            >
+              Enviar
+            </div>
           </div>
         </main>
       </section>
