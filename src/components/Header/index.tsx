@@ -5,6 +5,8 @@ type HeaderProps = {
 }
 
 export function Header({ modalDisplay }: HeaderProps) {
+  
+
   return (
     <header className="w-full h-20 bg-[#364A54] flex items-center">
       <div className="w-full py-2 px-12 flex justify-between">
@@ -19,4 +21,5 @@ export function Header({ modalDisplay }: HeaderProps) {
       </div>
     </header>
   );
+
 }

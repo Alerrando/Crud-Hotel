@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { MagnifyingGlass, Pencil, PlusCircle, Trash } from "phosphor-react";
-import { Modal } from "./components/modal";
-import { EditModal } from "./components/EditModal";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { Table } from "./components/Table";
+import { EditModal } from "./components/EditModal";
+import { Modal } from "./components/modal";
 
 export const inputs = {
   nome: "",
@@ -15,25 +15,29 @@ export const inputs = {
 
 export function App() {
   const [modal, setModal] = useState<boolean>(false);
+  const [infos, setInfos] = useState<any[]>([]);
+  const [search, setSearch] = useState("");
   const [atualizar, setAtualizar] = useState({
     update: false,
     index: 0,
   });
-  const [infos, setInfos] = useState<any[]>([]);
   const [inputsModal, setInputsModal] = useState(inputs);
-  const [search, setSearch] = useState("")
-
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setInputsModal({ ...inputsModal, [name]: value });
   };
 
-  const filtro:any[] = infos.filter(info => Object.values(info.nome).join('').toLowerCase().includes(search.toLowerCase()))
+  const filtro: any[] = infos.filter((info) =>
+    Object.values(info.nome)
+      .join("")
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
 
   return (
     <>
       <Header modalDisplay={modalDisplay} />
-
+      
       <main className="m-8">
         {modal ? (
           atualizar.update ? (
@@ -54,75 +58,13 @@ export function App() {
           )
         ) : null}
 
-        <table className="w-full border-collapse">
-          <thead className="bg-zinc-400 text-xl">
-            <th className="p-1 text-start">Id</th>
-            <th className="p-1 text-start">Nome</th>
-            <th className="p-1 text-start">Email</th>
-            <th className="p-1 text-start">Telefone</th>
-            <th className="p-1 text-start">Endereço</th>
-            <th className="p-1 text-start">Data de Nascimento</th>
-            <th className="p-1 text-start">Editar</th>
-            <th className="p-1 text-start">Excluir</th>
-          </thead>
-          <tbody>
-            {search.length == 0 ?
-                (infos.map((hospede, index) => (
-                  <tr className="border-b-2" key={index}>
-                    <td className="max-h-14 p-[6px]">{index + 1}</td>
-                    <td className="max-h-14 p-[6px]">{hospede.nome}</td>
-                    <td className="max-h-14 p-[6px]">{hospede.email}</td>
-                    <td className="max-h-14 p-[6px]">{hospede.telefone}</td>
-                    <td className="max-h-14 p-[6px]">{hospede.endereco}</td>
-                    <td className="max-h-14 p-[6px]">{hospede.dataNascimento}</td>
-                    <td className="max-h-14 p-[6px]">
-                      <Pencil
-                        size={32}
-                        weight="bold"
-                        className="cursor-pointer"
-                        onClick={(e) => editHospede(index)}
-                      />
-                    </td>
-                    <td className="max-h-14 p-[6px]">
-                      <Trash
-                        size={32}
-                        weight="bold"
-                        className="cursor-pointer"
-                        onClick={(e) => deleteHospede(index)}
-                      />
-                    </td>
-                  </tr>))
-                ) :
-              (filtro.map((hospede:typeof inputs, index:number) => (
-                  <tr className="border-b-2" key={index}>
-                    <td className="max-h-14 p-[6px]">{index + 1}</td>
-                    <td className="max-h-14 p-[6px]">{hospede.nome}</td>
-                    <td className="max-h-14 p-[6px]">{hospede.email}</td>
-                    <td className="max-h-14 p-[6px]">{hospede.telefone}</td>
-                    <td className="max-h-14 p-[6px]">{hospede.endereco}</td>
-                    <td className="max-h-14 p-[6px]">{hospede.dataNascimento}</td>
-                    <td className="max-h-14 p-[6px]">
-                      <Pencil
-                        size={32}
-                        weight="bold"
-                        className="cursor-pointer"
-                        onClick={(e) => editHospede(index)}
-                      />
-                    </td>
-                    <td className="max-h-14 p-[6px]">
-                      <Trash
-                        size={32}
-                        weight="bold"
-                        className="cursor-pointer"
-                        onClick={(e) => deleteHospede(index)}
-                      />
-                    </td>
-                  </tr>
-                ))
-              )
-            }
-          </tbody>
-        </table>
+        <Table
+          search={search}
+          infos={infos}
+          editHospede={editHospede}
+          deleteHospede={deleteHospede}
+          filtro={filtro}
+        />
       </main>
 
       <Footer setSearch={setSearch} />
@@ -172,23 +114,23 @@ export function App() {
         }
         return item;
       });
-  
+
       setInfos(atualizarHospede);
       setModal(false);
     }
-  
+
     setAtualizar({ update: false, index: 0 });
   }
-  
+
   function deleteHospede(index: number) {
     const arrayAux = [...infos];
     arrayAux.splice(index, 1);
     setInfos(arrayAux);
   }
-  
+
   function editHospede(id: number) {
     setAtualizar({ update: true, index: id });
-  
+
     setModal(true);
   }
 }
