@@ -7,18 +7,8 @@ type FooterProps = {
 export function Footer(props:FooterProps){
     return(
         <footer className="w-full h-12 bg-[#364A54] m-auto bottom-0 fixed">
-        <div className="flex items-center justify-between px-12 py-3">
-          <div>
-            <label className="text-white pr-4">Ordenar por: </label>
-            <select>
-              <option value="padrao" selected>
-                Padrão
-              </option>
-              <option value="nome">Nome</option>
-              <option value="email">E-mail</option>
-            </select>
-          </div>
-          <div className="flex justify-center">
+        <div className="px-12 py-3">
+          <div className="flex justify-start">
             <div className="xl:w-96">
               <div className="input-group relative flex items-center gap-2 w-full">
                 <input
