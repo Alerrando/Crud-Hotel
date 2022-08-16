@@ -62,6 +62,7 @@ export function EditModal(props: EditModalProps) {
                 type="tel"
                 name="telefone"
                 min={12}
+                max={16}
                 id="tel"
                 value={infos.telefone}
                 onChange={props.handleInputChange}

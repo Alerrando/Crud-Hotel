@@ -60,6 +60,8 @@ export function Modal(props: ModalProps) {
                 type="tel"
                 placeholder="(00) 12345-6789"
                 name="telefone"
+                min={12}
+                max={16}
                 id="tel"
                 onChange={(e) => {
                   props.handleInputChange(e)

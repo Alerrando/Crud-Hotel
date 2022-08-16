@@ -132,9 +132,19 @@ export function App() {
     setInfos(arrayAux);
   }
 
-  function editHospede(id: number) {
-    setAtualizar({ update: true, index: id });
-    setAuxInputsModal(infos[id]);
-    setModal(true);
+  function editHospede(id: number, nomeHospede:string) {
+    if (search.length == 0) {
+      setAtualizar({ update: true, index: id });
+      setAuxInputsModal(infos[id]);
+      setModal(true);
+    } else {
+      infos.map((item, index) => {
+        if (item.nome == nomeHospede) {
+          setAtualizar({ update: true, index: index });
+          setAuxInputsModal(infos[index]);
+          setModal(true);
+        }
+      });
+    }
   }
 }

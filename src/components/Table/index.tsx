@@ -4,7 +4,7 @@ import { inputs } from "../../App";
 type TableProps = {
   search: string;
   infos: any[];
-  editHospede: (id: number) => void;
+  editHospede: (id: number, nomeHospede: string) => void;
   deleteHospede: (index: number) => void;
   filtro: any[];
 };
@@ -37,7 +37,7 @@ export function Table(props: TableProps) {
                     size={32}
                     weight="bold"
                     className="cursor-pointer"
-                    onClick={(e) => props.editHospede(index)}
+                    onClick={(e) => props.editHospede(index, hospede.nome)}
                   />
                 </td>
                 <td className="max-h-14 p-[6px]">
@@ -63,7 +63,7 @@ export function Table(props: TableProps) {
                     size={32}
                     weight="bold"
                     className="cursor-pointer"
-                    onClick={() => props.editHospede(index)}
+                    onClick={() => props.editHospede(index, hospede.nome)}
                   />
                 </td>
                 <td className="max-h-14 p-[6px]">
