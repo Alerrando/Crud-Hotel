@@ -4,15 +4,14 @@ import { inputs } from "../../App";
 type EditModalProps = {
   addInfos: () => void;
   modal: (atualizar: string) => void;
-  infos: any[]
-  inputsModal: typeof inputs;
+  infos: any[];
+  auxInputsModal: typeof inputs;
   atualizar: any;
   handleInputChange: (e: any) => void;
 };
 
 export function EditModal(props: EditModalProps) {
-  let infos = props.inputsModal;
-
+  let infos = props.auxInputsModal;
   return (
     <div className="w-screen h-screen fixed flex top-0 left-0 z-50 items-center justify-center bg-modal">
       <section className="w-[80%] h-[77%] bg-white">
@@ -55,7 +54,7 @@ export function EditModal(props: EditModalProps) {
               />
 
               <label className="text-xl" htmlFor="telefone">
-                Telefone:{" "}
+                Telefone (Min: 12):{" "}
               </label>
               <input
                 className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"

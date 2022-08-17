@@ -47,7 +47,7 @@ export function App() {
               addInfos={addInfos}
               modal={modalDisplay}
               infos={infos}
-              inputsModal={auxInputsModal}
+              auxInputsModal={auxInputsModal}
               atualizar={atualizar}
               handleInputChange={handleInputChange}
             />
@@ -82,7 +82,8 @@ export function App() {
         validar = -1;
         key == "endereco"
           ? (emBranco += "endereço, ")
-          : key == "dataNascimento" ? (emBranco += "Data de Nascimento, ")
+          : key == "dataNascimento"
+          ? (emBranco += "Data de Nascimento, ")
           : (emBranco += `${key}, `);
       } else if (key == "telefone") {
         if (!/[0-9]/.test(valor)) validar = -1;
@@ -116,20 +117,22 @@ export function App() {
           endereco: "",
           dataNascimento: "",
         });
+        setAtualizar({ update: false, index: 0 });
       }
     } else {
-      const atualizarHospede = infos.map((item, index) => {
-        if (atualizar.index == index) {
-          return auxInputsModal;
-        }
-        return item;
-      });
+      if (validarInputs(auxInputsModal) > 0) {
+        const atualizarHospede = infos.map((item, index) => {
+          if (atualizar.index == index) {
+            return auxInputsModal;
+          }
+          return item;
+        });
 
-      setInfos(atualizarHospede);
-      setModal(false);
+        setInfos(atualizarHospede);
+        setModal(false);
+        setAtualizar({ update: false, index: 0 });
+      }
     }
-
-    setAtualizar({ update: false, index: 0 });
   }
 
   function deleteHospede(index: number) {

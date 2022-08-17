@@ -9,6 +9,7 @@ type ModalProps = {
 };
 
 export function Modal(props: ModalProps) {
+
   return (
     <div className="w-screen h-screen fixed flex top-0 left-0 z-50 items-center justify-center bg-modal">
       <section className="w-[80%] h-[77%] bg-white">
@@ -53,7 +54,7 @@ export function Modal(props: ModalProps) {
               />
 
               <label className="text-xl" htmlFor="telefone">
-                Telefone:{" "}
+                Telefone (Min: 12):{" "}
               </label>
               <input
                 className="w-full outline-none border-b-[3px] border-b-gray-500 my-3"
