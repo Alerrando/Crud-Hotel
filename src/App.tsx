@@ -75,17 +75,23 @@ export function App() {
   );
 
   function validarInputs(index: object) {
-    let validar = 1;
+    let validar = 1,
+      emBranco = "";
     for (const [key, valor] of Object.entries(index)) {
-      if (valor == "") validar = -1;
-      else if (key == "telefone") {
+      if (valor == "") {
+        validar = -1;
+        key == "endereco"
+          ? (emBranco += "endereço, ")
+          : key == "dataNascimento" ? (emBranco += "Data de Nascimento, ")
+          : (emBranco += `${key}, `);
+      } else if (key == "telefone") {
         if (!/[0-9]/.test(valor)) validar = -1;
         else if (valor.length < 12) validar = -1;
       }
     }
 
     return validar == -1
-      ? alert("Preencha todos os campos corretamente!")
+      ? alert(`Preencha os campos: ${emBranco} corretamente!`)
       : validar;
   }
 
@@ -132,7 +138,7 @@ export function App() {
     setInfos(arrayAux);
   }
 
-  function editHospede(id: number, nomeHospede:string) {
+  function editHospede(id: number, nomeHospede: string) {
     if (search.length == 0) {
       setAtualizar({ update: true, index: id });
       setAuxInputsModal(infos[id]);
