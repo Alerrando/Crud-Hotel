@@ -40,7 +40,7 @@ export function App() {
     <>
       <Header modalDisplay={modalDisplay} />
 
-      <main className="m-8">
+      <main className="md:m-8">
         {modal ? (
           atualizar.update ? (
             <EditModal
