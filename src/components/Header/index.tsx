@@ -8,14 +8,14 @@ export function Header({ modalDisplay }: HeaderProps) {
   
 
   return (
-    <header className="w-full h-20 bg-[#364A54] flex items-center">
-      <div className="w-full py-2 px-12 flex justify-between">
-        <h1 className="text-3xl text-white">Cadastro de Hóspedes</h1>
+    <header className="w-full h-20 bg-[#364A54] flex">
+      <div className="w-full py-2 px-2 md:px-12 flex justify-between items-center">
+        <h1 className="text-sm md:text-3xl text-white">Cadastro de Hóspedes</h1>
         <button
-          className="flex items-center text-2xl gap-2 text-white bg-green-600 px-3"
+          className="flex items-center text-sm md:text-2xl gap-1 md:gap-2 text-white py-1 bg-green-600 px-2"
           onClick={() => modalDisplay("ativar")}
         >
-          <PlusCircle size={26} weight="bold" />
+          <PlusCircle className="w-6 h-6" weight="bold" />
           Adicionar novo hóspede
         </button>
       </div>
