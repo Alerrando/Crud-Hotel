@@ -29,6 +29,24 @@ export function App() {
     setAuxInputsModal({ ...auxInputsModal, [name]: value });
   };
 
+  useEffect(() => {
+    try{
+      const savedInfos = JSON.parse(localStorage.getItem('react-crud-hotel-data') || "");
+
+      if(savedInfos.length > 0)
+        setInfos(savedInfos)
+    } catch(err:any){
+      console.log(err)
+    }
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem(
+			'react-crud-hotel-data',
+			JSON.stringify(infos)
+		);
+	}, [infos]);
+
   return (
     <>
       <Header modalDisplay={modalDisplay} />
