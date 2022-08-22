@@ -6,7 +6,6 @@ type TableProps = {
   infos: any[];
   editHospede: (id: number, nomeHospede: string) => void;
   deleteHospede: (index: number) => void;
-  filtro: any[];
 };
 
 export function Table(props: TableProps) {
@@ -24,8 +23,7 @@ export function Table(props: TableProps) {
           <th className="p-1 text-start">Excluir</th>
         </thead>
         <tbody>
-          {props.search.length == 0
-            ? props.infos.map((hospede, index) => (
+          {props.infos.map((hospede, index) => (
                 <tr className="border-b-2 text-[0.6rem] md:text-base" key={index}>
                   <td className="max-h-14 p-[6px]">{index + 1}</td>
                   <td className="max-h-14 p-[6px]">{hospede.nome}</td>
@@ -45,30 +43,6 @@ export function Table(props: TableProps) {
                       weight="bold"
                       className="cursor-pointer w-6 h-6 md:w-8 md:h-8"
                       onClick={(e) => props.deleteHospede(index)}
-                    />
-                  </td>
-                </tr>
-              ))
-            : props.filtro.map((hospede: typeof inputs, index: number) => (
-                <tr className="border-b-2 text-[0.6rem] md:text-base" key={index}>
-                  <td className="max-h-14 p-[6px]">{index + 1}</td>
-                  <td className="max-h-14 p-[6px]">{hospede.nome}</td>
-                  <td className="max-h-14 p-[6px]">{hospede.email}</td>
-                  <td className="max-h-14 p-[6px]">{hospede.telefone}</td>
-                  <td className="max-h-14 p-[6px]">{hospede.endereco}</td>
-                  <td className="max-h-14 p-[6px]">{hospede.dataNascimento}</td>
-                  <td className="max-h-14 p-[6px]">
-                    <Pencil
-                      weight="bold"
-                      className="cursor-pointer w-6 h-6 md:w-8 md:h-8"
-                      onClick={() => props.editHospede(index, hospede.nome)}
-                    />
-                  </td>
-                  <td className="max-h-14 p-[6px]">
-                    <Trash
-                      weight="bold"
-                      className="cursor-pointer w-6 h-6 md:w-8 md:h-8"
-                      onClick={() => props.deleteHospede(index)}
                     />
                   </td>
                 </tr>

@@ -29,13 +29,6 @@ export function App() {
     setAuxInputsModal({ ...auxInputsModal, [name]: value });
   };
 
-  const filtro: any[] = infos.filter((info) =>
-    Object.values(info.nome)
-      .join("")
-      .toLowerCase()
-      .includes(search.toLowerCase())
-  );
-
   return (
     <>
       <Header modalDisplay={modalDisplay} />
@@ -63,10 +56,14 @@ export function App() {
 
         <Table
           search={search}
-          infos={infos}
+          infos={infos.filter((info) =>
+            Object.values(info.nome)
+              .join("")
+              .toLowerCase()
+              .includes(search.toLowerCase())
+          )}
           editHospede={editHospede}
           deleteHospede={deleteHospede}
-          filtro={filtro}
         />
       </main>
 
