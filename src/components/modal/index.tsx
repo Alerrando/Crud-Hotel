@@ -98,7 +98,7 @@ export function Modal(props: ModalProps) {
           </div>
           <div className="flex items-center justify-end my-4 mx-8">
             <div
-              className="w-20 h-8 flex items-center justify-center cursor-pointer bg-blue-700 text-white hover:bg-blue-900 transition-colors"
+              className="w-20 h-8 flex items-center justify-center cursor-pointer bg-green-600 text-white hover:bg-green-800 transition-colors"
               onClick={props.addInfos}
             >
               Enviar
