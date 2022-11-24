@@ -10,14 +10,6 @@ export function Footer(props:FooterProps){
         <div className="px-6 md:px-12 py-3">
           <div>
             <div className="w-full flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <label className="text-white">Ordenar por: </label>
-                <select name="select">
-                  <option value="padrão">Padrão</option>
-                  <option value="nome">Nome</option>
-                  <option value="email">Email</option>
-                </select>
-              </div>
               <div className="input-group relative flex items-center gap-2">
                 <input
                   type="search"

@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
-import { Table } from "./components/Table";
-import { EditModal } from "./components/EditModal";
-import { Modal } from "./components/modal";
+import { Header, Footer, Table, EditModal, Modal } from './components'
 
 export const inputs = {
   nome: "",
@@ -101,20 +97,17 @@ export function App() {
           ? (emBranco += "Data de Nascimento, ")
           : (emBranco += `${key}, `);
       } else if (key == "telefone") {
-        if (!/[0-9]/.test(valor)) validar = -1;
-        else if (valor.length < 12) validar = -1;
+        if (!/[0-9]/.test(valor)){ validar = -1;}
+        else if (valor.length < 12) { validar = -1;}
       }
     }
 
-    return validar == -1
-      ? alert(`Preencha os campos: ${emBranco} corretamente!`)
-      : validar;
+    return validar == -1 ? alert(`Preencha os campos: ${emBranco} corretamente!`) : validar;
   }
 
   function modalDisplay(display: string) {
-    if (display == "ativar") {
-      setModal(true);
-    } else {
+    if (display == "ativar") { setModal(true); }
+    else {
       setModal(false);
       setAtualizar({ update: false, index: 0 });
     }
